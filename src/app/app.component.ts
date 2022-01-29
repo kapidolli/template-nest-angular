@@ -1,10 +1,21 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   title = 'fullstack-sample-project';
+
+  constructor(private http: HttpClient) {}
+
+  clickButton() {
+    this.http.get<any>('/api/auth').subscribe({
+      next: (name) => {
+        this.title = name.name;
+      },
+    });
+  }
 }
